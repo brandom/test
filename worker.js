@@ -12,7 +12,12 @@ process.on('message', function(msg) {
     a.forEach(data.work, function(file, cb) {
       // console.log(file);
       let info = taglib.open(file);
-      tags.push(info.getAll());
+      try {
+        tags.push(info.getAll());
+
+      } catch(e) {
+        cb(e);
+      }
       // info.log();
       cb(null);
     }, function(err) {
