@@ -10,7 +10,7 @@ process.on('message', function(msg) {
   if (msg.concurrency) return c = msg.concurrency;
 
   var q = a.queue(function (file, cb) {
-      let info = taglib.open(file);
+      let info = taglib.open("'"+file"'");
       cb(null, info);
   }, c);
 
