@@ -5,7 +5,7 @@ var cluster = require('cluster');
 
 var directory = process.argv[2];
 
-var workers = 2;
+var workers = 4;
 var w = [];
 var c = [];
 var wi = [];
@@ -38,7 +38,7 @@ for (var i = 0; i < workers; i++) {
 walk(directory, /.mp3$/, function(err, results) {
   console.log('Chunking', results.length);
   total = results.length;
-  var i,j,p,chunk = 10;
+  var i,j,p,chunk = 100;
   for (i=0, j=results.length, p=-1; i<j; i+=chunk) {
     p++;
     if (p >= w.length) p = 0;
@@ -48,7 +48,7 @@ walk(directory, /.mp3$/, function(err, results) {
   }
 
   for (var i = 0; i < workers; i++) {
-    console.log('Sending worker', i, q[i].length);
+    // console.log('Sending worker', i, q[i].length);
     if (q[i].length > 0) {
       // let work = q[i].pop();
       w[i].send(q[i]);

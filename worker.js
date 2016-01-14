@@ -6,11 +6,11 @@ var a = require('async');
 process.on('message', function(msg) {
   // console.log(msg);
   if (msg === 1) return process.exit();
-  console.log('Got', msg.length);
+  // console.log('Got', msg.length);
   msg.forEach(function(work) {
     let p = 0;
     // let work = msg.pop();
-    console.log(work.length);
+    // console.log(work.length);
     a.forEach(work, function(file, cb) {
       var info = taglib.open(file);
       // info.log();
