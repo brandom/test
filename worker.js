@@ -9,8 +9,8 @@ process.on('message', function(msg) {
   if (msg === 1) return process.exit();
   if (msg.concurrency) return c = msg.concurrency;
 
-  var q = a.queue(function (file, cb) {
-    let info = taglib.open(file);
+  var q = a.queue(function (msg, cb) {
+    let info = taglib.open(msg.file);
     cb(null, info);
   }, c);
 
@@ -21,7 +21,7 @@ process.on('message', function(msg) {
   msg.forEach(function(work) {
     let p = 0;
     work.forEach(function(file) {
-      q.push(file, function(err) {
+      q.push({file: file}, function(err) {
         p++;
         if (p === c) {
           process.send(p);
