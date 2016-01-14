@@ -7,12 +7,12 @@ process.on('message', function(msg) {
   if (msg === 1) return process.exit();
 
   var q = a.queue(function (data, cb) {
-    console.log('New q with work', data.work);
+    console.log('New q with work', data.work.length);
     let tags = [];
     a.forEach(data.work, function(file, cb) {
       // console.log(file);
-      let info = taglib.open(file);
       try {
+        let info = taglib.open(file);
         tags.push(info.getAll());
 
       } catch(e) {
@@ -21,6 +21,7 @@ process.on('message', function(msg) {
       // info.log();
       cb(null);
     }, function(err) {
+      console.log('Calling back', tags.length);
       if (err) console.log("Error", err);
       // q.pause();
       cb(err, tags);
