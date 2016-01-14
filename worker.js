@@ -24,11 +24,13 @@ process.on('message', function(msg) {
       // console.log(file);
       try {
         let info = tagio.open(file, config);
-        let ap = info.getAudioProperties();
-        let gen = info.getTag();
-        let id3v2;
+        // let ap = info.getAudioProperties();
+        // let included = this.getIncludedTags();
+        // let gen = info.getTag();
+        // if (included.indexOf(''))
         // if (info.getID3v2Tag) id3v2 = info.getID3v2Tag();
-        tags.push({audio_properties: ap, generic: gen, id3v2: id3v2});
+        // tags.push({audio_properties: ap, generic: gen, id3v2: id3v2});
+        tags.push(info.getAll());
         info = undefined;
         return cb();
 
