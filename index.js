@@ -3,11 +3,13 @@ var walk = require('./walk');
 
 var cluster = require('cluster');
 
-var workers = 4;
+var workers = 3;
 var w = [];
 var c = [];
 var wi = [];
 var processed = 0;
+var total;
+var lastp = 0;
 
 cluster.setupMaster({ exec : "worker.js", });
 
@@ -19,12 +21,16 @@ for (var i = 0; i < workers; i++) {
     processed = processed + msg;
     c[a] = c[a] - msg;
     if (c[a] === 0) w[a].send(1);
+    let percent = Math.round(processed/total*100);
+    if (percent > lastp) console.log(percent,'%');
+    lastp = percent;
   })
 }
 
-walk('/Volumes/debra/Music/Bob Dylan', /.mp3$/, function(err, results) {
-  console.log(results.length);
-  var i,j,p,chunk = 10;
+walk('/home/brandon/Music', /.mp3$/, function(err, results) {
+  console.log('Chunking', results.length);
+  total = results.length;
+  var i,j,p,chunk = 1000;
   for (i=0, j=results.length, p=-1; i<j; i+=chunk) {
     p++;
     if (p >= w.length) p = 0;
