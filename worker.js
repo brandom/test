@@ -25,6 +25,7 @@ process.on('message', function(msg) {
       try {
         let info = tagio.open(file, config);
         tags.push(info.getTag());
+        info = undefined;
         return cb();
 
       } catch(e) {
@@ -54,6 +55,7 @@ process.on('message', function(msg) {
     let p = 0;
     q.push({work: work}, function(err, tags) {
       process.send(work.length);
+      tags = undefined;
     });
   });
   msg = undefined;
