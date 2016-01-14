@@ -14,8 +14,6 @@ var config = {
   id3v2UseFrameEncoding: false
 };
 
-var timeout = 100;
-
 process.on('message', function(msg) {
   // console.log(msg);
   if (msg === 1) return process.exit();
@@ -37,7 +35,9 @@ process.on('message', function(msg) {
       if (err) console.log("Error", err);
       q.pause();
       cb(err, tags);
-      timeout = timeout * 1.2;
+      let max = 2000;
+      let min = 50;
+      let timeout = Math.random() * (max - min) + min;
       console.log('timeout is now', timeout)
       setTimeout(function() {
         q.resume();
