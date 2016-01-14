@@ -7,16 +7,25 @@ process.on('message', function(msg) {
   if (msg === 1) return process.exit();
 
   var q = a.queue(function (data, cb) {
-    // console.log(data.work);
-    a.forEach(data.work, function(file, cb) {
+    let tags = [];
+    a.each(data.work, function(file, cb) {
       // console.log(file);
       let info = taglib.open(file);
-      cb(null, info);
-    }, function(err, tags) {
+      tags.push(info.getAll());
+      cb(null);
+    }, function(err) {
+      q.pause();
       cb(err, tags);
+      setTimeout(function() {
+        q.resume();
+      }, 1000);
     })
 
   }, 1);
+
+  q.saturated = function() {
+    console.log('Saturated, waiting..');
+  }
 
   q.drain = function() {
     console.log('all items have been processed');
@@ -24,7 +33,7 @@ process.on('message', function(msg) {
   // console.log('Got', msg.length);
   msg.forEach(function(work) {
     let p = 0;
-    q.push({work: work}, function(err) {
+    q.push({work: work}, function(err, tags) {
       process.send(work.length);
     });
     // let work = msg.pop();
