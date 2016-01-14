@@ -33,10 +33,10 @@ for (var i = 0; i < workers; i++) {
   })
 }
 
-walk('/Volumes/debra/Music/Bob Dylan', /.mp3$/, function(err, results) {
+walk('/home/brandon/Music', /.mp3$/, function(err, results) {
   console.log('Chunking', results.length);
   total = results.length;
-  var i,j,p,chunk = 1000;
+  var i,j,p,chunk = 10;
   for (i=0, j=results.length, p=-1; i<j; i+=chunk) {
     p++;
     if (p >= w.length) p = 0;
