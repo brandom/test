@@ -11,7 +11,7 @@ process.on('message', function(msg) {
     a.forEach(data.work, function(file, cb) {
       // console.log(file);
       let info = taglib.open(file);
-      tags.push(info.getAll());
+      // tags.push(info.getAll());
       info.log();
       cb(null);
     }, function(err) {
@@ -20,7 +20,7 @@ process.on('message', function(msg) {
       // setTimeout(function() {
       //   q.resume();
       // }, 1000);
-    })
+    });
 
   }, 1);
 
