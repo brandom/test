@@ -1,0 +1,17 @@
+{
+  "name": "mediaserv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brandon Van Noy",
+  "license": "ISC",
+  "devDependencies": {
+    "cmake-js": "^0.12.2"
+  },
+  "dependencies": {
+    "tagio": "^0.4.2"
+  }
+}
