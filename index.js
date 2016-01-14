@@ -3,7 +3,9 @@ var walk = require('./walk');
 
 var cluster = require('cluster');
 
-var workers = 3;
+var directory = process.argv[2];
+
+var workers = 2;
 var w = [];
 var c = [];
 var wi = [];
@@ -23,17 +25,17 @@ for (var i = 0; i < workers; i++) {
     processed = processed + msg;
     c[a] = c[a] - msg;
     if (c[a] === 0) w[a].send(1);
-    else if (q[a].length > 0) {
-      let work = q[a].pop();
-      w[a].send(work);
-    }
+    // else if (q[a].length > 0) {
+    //   let work = q[a].pop();
+    //   w[a].send(work);
+    // }
     let percent = Math.round(processed/total*100);
     if (percent > lastp) console.log(percent,'%');
     lastp = percent;
   })
 }
 
-walk('/home/brandon/Music', /.mp3$/, function(err, results) {
+walk(directory, /.mp3$/, function(err, results) {
   console.log('Chunking', results.length);
   total = results.length;
   var i,j,p,chunk = 10;
@@ -46,9 +48,10 @@ walk('/home/brandon/Music', /.mp3$/, function(err, results) {
   }
 
   for (var i = 0; i < workers; i++) {
+    console.log('Sending worker', i, q[i].length);
     if (q[i].length > 0) {
-      let work = q[i].pop();
-      w[i].send(work);
+      // let work = q[i].pop();
+      w[i].send(q[i]);
     }
   }
 

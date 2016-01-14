@@ -9,7 +9,8 @@
   "author": "Brandon Van Noy",
   "license": "ISC",
   "devDependencies": {
-    "cmake-js": "^0.12.2"
+    "cmake-js": "^0.12.2",
+    "electron-prebuilt": "^0.36.3"
   },
   "dependencies": {
     "async": "^1.5.2",
