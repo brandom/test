@@ -24,10 +24,6 @@ process.on('message', function(msg) {
 
   }, 1);
 
-  q.saturated = function() {
-    console.log('Saturated, waiting..');
-  }
-
   q.drain = function() {
     console.log('all items have been processed');
   }
