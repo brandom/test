@@ -27,7 +27,7 @@ process.on('message', function(msg) {
         let ap = info.getAudioProperties();
         let gen = info.getTag();
         let id3v2;
-        if (info.getID3v2Tag) id3v2 = info.getID3v2Tag();
+        // if (info.getID3v2Tag) id3v2 = info.getID3v2Tag();
         tags.push({audio_properties: ap, generic: gen, id3v2: id3v2});
         info = undefined;
         return cb();
