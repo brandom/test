@@ -22,7 +22,6 @@ for (var i = 0; i < workers; i++) {
   c[i] = 0;
   q[i] = [];
   w[i].on('message', function(msg) {
-    console.log('Done:', msg)
     processed = processed + msg;
     c[a] = c[a] - msg;
     if (c[a] === 0) w[a].send(1);
@@ -31,7 +30,7 @@ for (var i = 0; i < workers; i++) {
     //   w[a].send(work);
     // }
     let percent = Math.round(processed/total*100);
-    // if (percent > lastp) console.log(percent,'%');
+    if (percent > lastp) console.log(percent,'%');
     lastp = percent;
   })
 }
@@ -39,7 +38,7 @@ for (var i = 0; i < workers; i++) {
 walk(directory, /.mp3$/, function(err, results) {
   console.log('Chunking', results.length);
   total = results.length;
-  var i,j,p,chunk = 10;
+  var i,j,p,chunk = 1000;
   for (i=0, j=results.length, p=-1; i<j; i+=chunk) {
     p++;
     if (p >= w.length) p = 0;
