@@ -25,7 +25,7 @@ process.on('message', function(msg) {
       try {
         let info = tagio.open(file, config);
         let ap = info.getAudioProperties();
-        let included = this.getIncludedTags();
+        let included = info.getIncludedTags();
         let gen = info.getTag();
         console.log(included);
         let id3v2;
