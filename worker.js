@@ -28,8 +28,13 @@ process.on('message', function(msg) {
         let included = info.getIncludedTags();
         let gen = info.getTag();
         var id3v2;
-        if (included.filter((s) => s.indexOf('ID3v2') > -1).length > 0) id3v2 = info.getID3v2Tag();
-        if (id3v2) console.log(id3v2);
+        if (included.filter((s) => s.indexOf('ID3v2') > -1).length > 0) {
+          try {
+            id3v2 = info.getID3v2Tag();
+          } catch (e) {
+            console.log('ID3v2 Error', e);
+          }
+        }
         tags.push({audio_properties: ap, generic: gen, id3v2: id3v2});
         info = undefined;
         return cb();
