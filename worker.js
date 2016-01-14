@@ -27,8 +27,10 @@ process.on('message', function(msg) {
         let ap = info.getAudioProperties();
         let included = info.getIncludedTags();
         let gen = info.getTag();
-        let id3v2;
-        if (included.filter((s) => s.indexOf('ID3v2') > -1) === true) id3v2 = info.getID3v2Tag();
+        var id3v2;
+        console.log(included.filter((s) => return s.indexOf('ID3v2') > -1));
+        if (included.filter((s) => return s.indexOf('ID3v2') > -1) === true) id3v2 = info.getID3v2Tag();
+        if (id3v2) console.log(id3v2);
         tags.push({audio_properties: ap, generic: gen, id3v2: id3v2});
         info = undefined;
         return cb();
