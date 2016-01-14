@@ -12,13 +12,14 @@ process.on('message', function(msg) {
       // console.log(file);
       let info = taglib.open(file);
       tags.push(info.getAll());
+      info.log();
       cb(null);
     }, function(err) {
-      q.pause();
+      // q.pause();
       cb(err, tags);
-      setTimeout(function() {
-        q.resume();
-      }, 1000);
+      // setTimeout(function() {
+      //   q.resume();
+      // }, 1000);
     })
 
   }, 1);
