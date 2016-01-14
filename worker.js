@@ -10,9 +10,8 @@ process.on('message', function(msg) {
   if (msg.concurrency) return c = msg.concurrency;
 
   var q = a.queue(function (file, cb) {
-    file = file.toString();
-      let info = taglib.open(file);
-      cb(null, info);
+    let info = taglib.open(file);
+    cb(null, info);
   }, c);
 
   q.drain = function() {
@@ -21,13 +20,15 @@ process.on('message', function(msg) {
   // console.log('Got', msg.length);
   msg.forEach(function(work) {
     let p = 0;
-    q.push(work, function(err) {
-      p++;
-      if (p === c) {
-        process.send(p);
-        p = 0;
-      }
-    });
+    work.forEach(function(file) {
+      q.push(file, function(err) {
+        p++;
+        if (p === c) {
+          process.send(p);
+          p = 0;
+        }
+      });
+    })
     // let work = msg.pop();
     // console.log(work.length);
     // work.forEach(function(file, cb) {
