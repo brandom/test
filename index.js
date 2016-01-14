@@ -7,6 +7,7 @@ var workers = 3;
 var w = [];
 var c = [];
 var wi = [];
+var q = [];
 var processed = 0;
 var total;
 var lastp = 0;
@@ -17,17 +18,22 @@ for (var i = 0; i < workers; i++) {
   let a = i;
   w[i] = cluster.fork();
   c[i] = 0;
+  q[i] = [];
   w[i].on('message', function(msg) {
     processed = processed + msg;
     c[a] = c[a] - msg;
     if (c[a] === 0) w[a].send(1);
+    else if (q[a].length > 0) {
+      let work = q[a].pop();
+      w[a].send(work);
+    }
     let percent = Math.round(processed/total*100);
     if (percent > lastp) console.log(percent,'%');
     lastp = percent;
   })
 }
 
-walk('/home/brandon/Music', /.mp3$/, function(err, results) {
+walk('/Volumes/debra/Music/Bob Dylan', /.mp3$/, function(err, results) {
   console.log('Chunking', results.length);
   total = results.length;
   var i,j,p,chunk = 1000;
@@ -36,12 +42,15 @@ walk('/home/brandon/Music', /.mp3$/, function(err, results) {
     if (p >= w.length) p = 0;
     var work = results.slice(i,i+chunk);
     c[p] = c[p] + work.length;
-    w[p].send(work);
+    q[p].push(work)
   }
 
-  // for (var i = 0; i < workers; i++) {
-  //   w[i].send('1');
-  // }
+  for (var i = 0; i < workers; i++) {
+    if (q[i].length > 0) {
+      let work = q[i].pop();
+      w[i].send(work);
+    }
+  }
 
   // cluster.on('message', function(msg) {
   //   console.log('Got msg from worker');
