@@ -24,6 +24,7 @@ for (var i = 0; i < workers; i++) {
   w[i].on('message', function(msg) {
     processed = processed + msg;
     c[a] = c[a] - msg;
+    console.log('Worker has', c[a], 'left');
     if (c[a] === 0) w[a].send(1);
     // else if (q[a].length > 0) {
     //   let work = q[a].pop();

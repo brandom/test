@@ -19,7 +19,7 @@ process.on('message', function(msg) {
         cb(e);
       }
       // info.log();
-      cb(null);
+      cb();
     }, function(err) {
       console.log('Calling back', tags.length);
       if (err) console.log("Error", err);
