@@ -24,7 +24,7 @@ process.on('message', function(msg) {
       // console.log(file);
       try {
         let info = tagio.open(file, config);
-        tags.push(info.getAll());
+        tags.push(info.getTag());
 
       } catch(e) {
         cb(e);
@@ -50,6 +50,7 @@ process.on('message', function(msg) {
   msg.forEach(function(work) {
     let p = 0;
     q.push({work: work}, function(err, tags) {
+      console.log(tags);
       process.send(work.length);
     });
     // let work = msg.pop();
