@@ -32,7 +32,6 @@ process.on('message', function(msg) {
       // info.log();
       cb();
     }, function(err) {
-      console.log('Calling back', tags.length);
       if (err) console.log("Error", err);
       // q.pause();
       cb(err, tags);
@@ -50,7 +49,6 @@ process.on('message', function(msg) {
   msg.forEach(function(work) {
     let p = 0;
     q.push({work: work}, function(err, tags) {
-      console.log(tags);
       process.send(work.length);
     });
     // let work = msg.pop();

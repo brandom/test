@@ -24,7 +24,6 @@ for (var i = 0; i < workers; i++) {
   w[i].on('message', function(msg) {
     processed = processed + msg;
     c[a] = c[a] - msg;
-    console.log('Worker has', c[a], 'left');
     if (c[a] === 0) w[a].send(1);
     // else if (q[a].length > 0) {
     //   let work = q[a].pop();
@@ -39,7 +38,7 @@ for (var i = 0; i < workers; i++) {
 walk(directory, /.mp3$/, function(err, results) {
   console.log('Chunking', results.length);
   total = results.length;
-  var i,j,p,chunk = 500;
+  var i,j,p,chunk = 5000;
   for (i=0, j=results.length, p=-1; i<j; i+=chunk) {
     p++;
     if (p >= w.length) p = 0;
