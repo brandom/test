@@ -5,7 +5,7 @@ var a = require('async');
 process.on('message', function(msg) {
   // console.log(msg);
   if (msg === 1) return process.exit();
-
+  console.log('Received work from master');
   var q = a.queue(function (data, cb) {
     console.log('New q with work', data.work.length);
     let tags = [];
@@ -13,7 +13,7 @@ process.on('message', function(msg) {
       // console.log(file);
       try {
         let info = taglib.open(file);
-        tags.push(info.getAll());
+        // tags.push(info.getAll());
 
       } catch(e) {
         cb(e);
