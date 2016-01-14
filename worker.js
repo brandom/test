@@ -24,7 +24,7 @@ process.on('message', function(msg) {
       // console.log(file);
       try {
         let info = tagio.open(file, config);
-        tags.push(info.getAll());
+        tags.push(info.getAudioProperties());
         info = undefined;
         return cb();
 
