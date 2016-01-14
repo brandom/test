@@ -1,5 +1,5 @@
 'use strict';
-var taglib = require('tagio');
+var tagio = require('tagio');
 var a = require('async');
 var config = {
   binaryDataDirectory: "/tmp",
@@ -23,7 +23,7 @@ process.on('message', function(msg) {
     a.forEach(data.work, function(file, cb) {
       // console.log(file);
       try {
-        let info = taglib.open(file, config);
+        let info = tagio.open(file, config);
         tags.push(info.getAll());
 
       } catch(e) {
