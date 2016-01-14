@@ -46,7 +46,6 @@ walk(directory, /.mp3$/, function(err, results) {
     var work = results.slice(i,i+chunk);
     c[p] = c[p] + work.length;
     q[p].push(work)
-    w[p].send({concurrency: chunk});
   }
 
   for (var i = 0; i < workers; i++) {
