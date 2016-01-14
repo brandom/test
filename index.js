@@ -5,7 +5,7 @@ var cluster = require('cluster');
 
 var directory = process.argv[2];
 
-var workers = 4;
+var workers = 1;
 var w = [];
 var c = [];
 var wi = [];
