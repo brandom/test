@@ -24,7 +24,7 @@ process.on('message', function(msg) {
       // console.log(file);
       try {
         let info = tagio.open(file, config);
-        tags.push(info.getTag());
+        tags.push(info.getAll());
         info = undefined;
         return cb();
 
