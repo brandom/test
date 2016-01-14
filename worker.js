@@ -7,12 +7,13 @@ process.on('message', function(msg) {
   if (msg === 1) return process.exit();
 
   var q = a.queue(function (data, cb) {
+    console.log('New q with work', data.work);
     let tags = [];
     a.forEach(data.work, function(file, cb) {
       // console.log(file);
       let info = taglib.open(file);
-      // tags.push(info.getAll());
-      info.log();
+      tags.push(info.getAll());
+      // info.log();
       cb(null);
     }, function(err) {
       // q.pause();
