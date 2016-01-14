@@ -25,12 +25,12 @@ process.on('message', function(msg) {
       try {
         let info = tagio.open(file, config);
         tags.push(info.getTag());
+        return cb();
 
       } catch(e) {
-        cb(e);
+        return cb(e);
       }
       // info.log();
-      cb();
     }, function(err) {
       if (err) console.log("Error", err);
       q.pause();
@@ -55,20 +55,7 @@ process.on('message', function(msg) {
     q.push({work: work}, function(err, tags) {
       process.send(work.length);
     });
-    // let work = msg.pop();
-    // console.log(work.length);
-    // work.forEach(function(file, cb) {
-    //   var info = taglib.open(file);
-    //   // info.log();
-    //   // console.log(p);
-    //   cb(info.log());
-    //   p++;
-    // }, function(err, logs) {
-    //   if (err) console.log('Err', err);
-    //   process.send(p);
-    //   // p = 0;
-    // });
-
   });
+  msg = undefined;
 
 });
