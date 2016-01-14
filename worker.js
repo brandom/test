@@ -14,6 +14,8 @@ var config = {
   id3v2UseFrameEncoding: false
 };
 
+var timeout = 100;
+
 process.on('message', function(msg) {
   // console.log(msg);
   if (msg === 1) return process.exit();
@@ -35,9 +37,10 @@ process.on('message', function(msg) {
       if (err) console.log("Error", err);
       q.pause();
       cb(err, tags);
+      timeout = timeout * 2;
       setTimeout(function() {
         q.resume();
-      }, 1000);
+      }, timeout);
     });
 
   }, 1);
