@@ -37,7 +37,7 @@ process.on('message', function(msg) {
       if (err) console.log("Error", err);
       q.pause();
       cb(err, tags);
-      timeout = timeout * 1.5;
+      timeout = timeout * 1.2;
       console.log('timeout is now', timeout)
       setTimeout(function() {
         q.resume();
