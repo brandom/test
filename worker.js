@@ -21,7 +21,7 @@ process.on('message', function(msg) {
       // info.log();
       cb(null);
     }, function(err) {
-      if (err) console.log("Error": err);
+      if (err) console.log("Error", err);
       // q.pause();
       cb(err, tags);
       // setTimeout(function() {
