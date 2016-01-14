@@ -8,7 +8,7 @@ process.on('message', function(msg) {
 
   var q = a.queue(function (data, cb) {
     let tags = [];
-    a.each(data.work, function(file, cb) {
+    a.forEach(data.work, function(file, cb) {
       // console.log(file);
       let info = taglib.open(file);
       tags.push(info.getAll());
