@@ -37,7 +37,7 @@ process.on('message', function(msg) {
       q.pause();
       cb(err, tags);
       let max = 500;
-      let min = 10;
+      let min = 300;
       let timeout = Math.random() * (max - min) + min;
       console.log('timeout is now', timeout)
       setTimeout(function() {
