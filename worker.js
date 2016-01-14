@@ -2,7 +2,7 @@
 var tagio = require('tagio');
 var a = require('async');
 var config = {
-  binaryDataDirectory: "/tmp",
+  binaryDataDirectory: __dirname + "/tmp",
   binaryDataUrlPrefix: "/attachments",
   binaryDataMethod: tagio.BinaryDataMethod.ABSOLUTE_URL,
   apeSave: false,
