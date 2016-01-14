@@ -33,11 +33,11 @@ process.on('message', function(msg) {
       cb();
     }, function(err) {
       if (err) console.log("Error", err);
-      // q.pause();
+      q.pause();
       cb(err, tags);
-      // setTimeout(function() {
-      //   q.resume();
-      // }, 1000);
+      setTimeout(function() {
+        q.resume();
+      }, 1000);
     });
 
   }, 1);
